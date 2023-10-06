@@ -14,12 +14,12 @@ const cors = require('cors');
 
 app.use(cors);
 
-app.listen(9992,function check(err)
+app.listen(5000,function check(err)
 {
     if(err)
     console.log("error")
     else
-    console.log("started at port 9992")
+    console.log("started at port 5000")
 });
 
 // mongoose.connect("mongodb://localhost:27017/aavhan2",{useNewUrlParser: true,  useUnifiedTopology: true },

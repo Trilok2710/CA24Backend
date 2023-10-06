@@ -5,12 +5,14 @@ mongoose.set('strictQuery', false);
 var routes = require('./route/routes');
 const cors = require('cors');
 
-app.use(cors(
-  {
-    origin: "http://localhost:4200"
-  }
+// app.use(cors(
+//   {
+//     origin: "http://localhost:4200"
+//   }
 
-));
+// ));
+
+app.use(cors);
 
 app.listen(9992,function check(err)
 {

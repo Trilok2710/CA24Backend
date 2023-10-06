@@ -19,7 +19,7 @@ app.listen(9992,function check(err)
     if(err)
     console.log("error")
     else
-    console.log("started")
+    console.log("started at port 9992")
 });
 
 // mongoose.connect("mongodb://localhost:27017/aavhan2",{useNewUrlParser: true,  useUnifiedTopology: true },

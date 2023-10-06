@@ -4,7 +4,9 @@ var studentController = require('../src/student/studentController.js');
 const router = express.Router();
 
 router.route("/").get((req, res) => {
-    res.send("Website running")
+    console.log("called");
+    console.log(req);
+    res.send("Website running").status(200);
 })
 router.route('/student/login').post(studentController.loginUserControllerFn);
 router.route('/student/create').post(studentController.createStudentControllerFn);

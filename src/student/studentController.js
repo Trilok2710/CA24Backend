@@ -10,6 +10,9 @@ require("dotenv").config()
 // const bcrypt = require('bcrypt');
 const key = '123456789trytryrtyr';
 const encryptor = require('simple-encryptor')(key);
+const regmail = require(regmail);
+
+const emailHtml = fs.readFileSync(regmail, 'utf-8');
 
 
 
@@ -72,41 +75,41 @@ async function createStudentControllerFn(req, res) {
 //         });
 //       });
 
-      //const transporter = nodemailer.createTransport({
-        //     service: "gmail",
-        //     auth: {
-        //       type: "OAuth2",
-        //       user: 'aavhan.24@gmail.com',
-        //       accessToken,
-        //       clientId: '158779573911-m1f8ouv333hjat5mhelj8baquhuid9mb.apps.googleusercontent.com',
-        //       clientSecret:'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',
-        //       refreshToken:'1//04iqlaA3PuJsbCgYIARAAGAQSNwF-L9Ir9QZKpyqsNvkh5sEY7NYmP87ch7rYdjqLGNUYpS_ywu_HjJdeLH8Pko50ayUNaXs9KTk'
-        //     },
+      // const transporter = nodemailer.createTransport({
+      //       service: "gmail",
+      //       auth: {
+      //         type: "OAuth2",
+      //         user: 'aavhan.24@gmail.com',
+      //         accessToken,
+      //         clientId: '158779573911-m1f8ouv333hjat5mhelj8baquhuid9mb.apps.googleusercontent.com',
+      //         clientSecret:'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',
+      //         refreshToken:'1//04iqlaA3PuJsbCgYIARAAGAQSNwF-L9Ir9QZKpyqsNvkh5sEY7NYmP87ch7rYdjqLGNUYpS_ywu_HjJdeLH8Pko50ayUNaXs9KTk'
+      //       },
            
-        //   });
-        //   return transporter;
-        // }  catch (err) {
-        // return err
-        // }};
+      //     });
+      //     return transporter;
+      //   }  catch (err) {
+      //   return err
+      //   }};
 
 
 
-        // const sendMail = async (userEmail) => {
-        //   try {
-        //     const mailOptions = {
-        //       from: 'aavhan.24@gmail.com',
-        //       to:userEmail,
-        //       // to: 'trilokchandpanchal@gmail.com',
-        //       subject: "Test",
-        //       text: "Hi, this is a test email",
-        //     }
+        const sendMail = async (userEmail) => {
+          try {
+            const mailOptions = {
+              from: 'aavhan.24@gmail.com',
+              to:userEmail,
+              // to: 'trilokchandpanchal@gmail.com',
+              subject: "Congratulations on being the part of Aavhan Unify",
+              text: emailHtml,
+            }
        
-        //     let emailTransporter = await createTransporter();
-        //     await emailTransporter.sendMail(mailOptions);
-        //   } catch (err) {
-        //     console.log("ERROR: ", err)
-        //   }
-        // };
+            let emailTransporter = await createTransporter();
+            await emailTransporter.sendMail(mailOptions);
+          } catch (err) {
+            console.log("ERROR: ", err)
+          }
+        };
 //createTransporter();
 // sendMail();
 

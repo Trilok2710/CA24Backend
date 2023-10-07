@@ -54,5 +54,6 @@ app.use(express.json());
 // app.use(routes);
 
 app.get("/", (req, res) => {
+  console.log("called")
   res.send("Website is running").status(200);
 })

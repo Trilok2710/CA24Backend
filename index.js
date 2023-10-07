@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-// var routes = require('./route/routes');
+var routes = require('./route/routes');
 const cors = require('cors');
 
 // app.use(cors(
@@ -12,9 +12,9 @@ const cors = require('cors');
 
 // ));
 
-app.use(cors);
+app.use(cors());
 
-app.listen("5000",function check(err)
+app.listen(5000,function check(err)
 {
     if(err)
     console.log("error")
@@ -51,9 +51,4 @@ async function connectToMongoDB() {
   }
   connectToMongoDB();
 app.use(express.json());
-// app.use(routes);
-
-app.get("/", (req, res) => {
-  console.log("called")
-  res.send("Website is running").status(200);
-})
+app.use(routes);

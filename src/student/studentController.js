@@ -10,9 +10,9 @@ require("dotenv").config()
 // const bcrypt = require('bcrypt');
 const key = '123456789trytryrtyr';
 const encryptor = require('simple-encryptor')(key);
-const regmail = require(regmail);
+// const regmail = require(regmail);
 
-const emailHtml = fs.readFileSync(regmail, 'utf-8');
+// const emailHtml = fs.readFileSync(regmail, 'utf-8');
 
 
 

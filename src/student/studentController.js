@@ -22,7 +22,7 @@ async function createStudentControllerFn(req, res) {
      var userEmail = req.body.email;
     console.log(req.body.email);
     let data = req.body;
-    data.referralcode = generateReferralCode();
+    data.referralcode = generateRefCode();
     var status = await studentService.createStudentDBService(data);
     console.log("new user registered");
     console.log(status);
@@ -35,7 +35,7 @@ async function createStudentControllerFn(req, res) {
 
     if (status) {
       res.send({ 'status': true, 'message': 'Student created successfully', 'referralCode': data.referralcode});
-      sendMail(userEmail);
+      sendEmail(userEmail);
     } else {
       res.send({ 'status': false, 'message': 'Error creating user' });
       console.log("something wrongoo");
@@ -94,24 +94,82 @@ async function createStudentControllerFn(req, res) {
 
 
 
-        const sendMail = async (userEmail) => {
-          try {
-            const mailOptions = {
-              from: 'aavhan.24@gmail.com',
-              to:userEmail,
-              // to: 'trilokchandpanchal@gmail.com',
-              subject: "Congratulations on being the part of Aavhan Unify",
-              text: emailHtml,
-            }
+        // const sendMail = async (userEmail) => {
+        //   try {
+        //     const mailOptions = {
+        //       from: 'aavhan.24@gmail.com',
+        //       //to:userEmail,
+        //       to: 'trilokchandpanchal@gmail.com',
+        //       subject: "Congratulations on being the part of Aavhan Unify",
+        //       text:`Congratulations 
+        //       You have successfully registered for the Aavhan unify program .
+              
+        //       As an Aavhan unify Member, you can win exciting prizes like Internship Opportunities, Merchandise, Free Accommodation in the main fest, Special Entry inside Aavhan events, Workshop and much more. You can even get a chance to be a part of the organising team for the Aavhan 2024.
+              
+        //       We'd encourage you to update your LinkedIn Headline and add "Campus ambassador  at Aavhan, IIT Bombay" as your current job profile by tagging Aavhan, IIT Bombay.
+              
+        //       Your Referral code will be visible on the profile of Aavhan Unify Website. Refer to your friends and earn  Points. The Early Bird rewards shall soon be sent to all the applicable registrants through mail.
+              
+        //       Loads of Love,
+              
+        //       Team Aavhan 2023
+        //       Respect All, Fear None.` ,
+        //     }
        
-            let emailTransporter = await createTransporter();
-            await emailTransporter.sendMail(mailOptions);
-          } catch (err) {
-            console.log("ERROR: ", err)
+        //     let emailTransporter = await createTransporter();
+        //     await emailTransporter.sendMail(mailOptions);
+        //   } catch (err) {
+        //     console.log("ERROR: ", err)
+        //   }
+        // };
+        const transporter = nodemailer.createTransport({
+
+          service:'Gmail',
+          auth:{
+            user:'aavhan.24@gmail.com',
+            pass:'hwcz tmoz jyep tjif'
           }
-        };
-//createTransporter();
-// sendMail();
+        });
+
+        function sendEmail(userEmail) {
+          const mailOptions = {
+            from: "aavhan.24@gmail.com", // Sender's email address
+            to:userEmail ,// Recipient's email address
+            subject: "Congratulations on being the part of Aavhan Unify",
+              text:`Congratulations 
+ You have successfully registered for the Aavhan unify program .
+              
+As an Aavhan unify Member, you can win exciting prizes like Internship Opportunities, Merchandise, Free Accommodation in the main fest, Special Entry inside Aavhan events, Workshop and much more. You can even get a chance to be a part of the organising team for the Aavhan 2024.
+              
+We'd encourage you to update your LinkedIn Headline and add "Campus ambassador  at Aavhan, IIT Bombay" as your current job profile by tagging Aavhan, IIT Bombay.
+              
+Your Referral code will be visible on the profile of Aavhan Unify Website. Refer to your friends and earn  Points. The Early Bird rewards shall soon be sent to all the applicable registrants through mail.
+            
+Loads of Love,
+              
+Team Aavhan 2023
+Respect All, Fear None.` ,
+          };
+        
+          // Send email
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error("Error sending email: ", error);
+            } else {
+              console.log("Email sent: ", info.response);
+            }
+          });
+        }
+     
+        
+        // Example usage:
+        
+        
+        
+        
+        
+        
+        
 
 
 var loginUserControllerFn = async (req, res) => {
@@ -172,29 +230,31 @@ async function getUserDetails(req, res) {
 // referralService.js
 
 // Function to generate a random referral code
-function generateReferralCode() {
-  const codeLength = 14; // You can adjust the length as needed
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let code = '';
+// function generateReferralCode() {
+//   const codeLength = 14; // You can adjust the length as needed
+//   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//   let code = '';
 
-  for (let i = 0; i < codeLength; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    code += characters.charAt(randomIndex);
-  }
+//   for (let i = 0; i < codeLength; i++) {
+//     const randomIndex = Math.floor(Math.random() * characters.length);
+//     code += characters.charAt(randomIndex);
+//   }
 
-  return code;
+//   return code;
+// }
+let counter = 1; // Initialize a counter to keep track of the registration number
+
+function generateRefCode() {
+  const prefix = "AAVHAN_CA"; // Prefix for the referral code
+  const code = `${prefix}#${counter}`; // Create the referral code
+  counter++; // Increment the counter for the next registration
+  return code; // Return the generated referral code
 }
 
 
 
-const transporter = nodemailer.createTransport({
 
-  service:'Gmail',
-  auth:{
-    user:'aavhan.24@gmail.com',
-    pass:'hwcz tmoz jyep tjif'
-  }
-});
+
                 
 
 
